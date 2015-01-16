@@ -10,4 +10,21 @@
 
 @implementation CityCustomClass
 
+- (instancetype)initWithName:(NSString *)city :(NSString *)state :(UIImage *)image :(NSString *)web;
+{
+//    self = [super init];
+//    NSLog(@"%@", self);
+
+    if (self)
+    {
+        self.cityName = city;
+        self.stateName = state;
+        self.cityImage = image;
+        self.webAddress = web;
+    }
+
+    return self;
+}
+
+
 @end

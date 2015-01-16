@@ -6,32 +6,85 @@
 //  Copyright (c) 2015 Evan Vandenberg. All rights reserved.
 //
 
-#import "CityViewController.h"
+#import "DetailViewController.h"
 
-@interface CityViewController ()
+@interface DetailViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *cityLabel;
+@property (weak, nonatomic) IBOutlet UITextField *cityText;
+@property (weak, nonatomic) IBOutlet UILabel *stateLabel;
+@property (weak, nonatomic) IBOutlet UITextField *stateText;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGesture;
 
 @end
 
-@implementation CityViewController
+@implementation DetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    //Set name label to SHOW
+    self.cityText.hidden = YES;
+    self.cityLabel.hidden = NO;
+
+    //Set description label to SHOW
+    self.stateText.hidden = YES;
+    self.stateLabel.hidden = NO;
+
+    //Set initial name and description
+    self.cityLabel.text = self.cityInfo.cityName;
+    self.stateLabel.text = self.cityInfo.stateName;
+    self.backgroundImageView.image = self.cityInfo.cityImage;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)button:(UIButton *)sender
+{
+    [self.delegate titleButtonPressed:self.cityInfo.cityName];
+    self.title = self.cityInfo.cityName;
 }
 
-/*
-#pragma mark - Navigation
+//- (IBAction)onTap:(UITapGestureRecognizer *)sender
+//{
+//}
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+- (IBAction)onEditButtonPressed:(UIBarButtonItem *)sender
+{
+    //Edit mode actions
+    if ([self.editButton.title isEqualToString:@"Edit"])
+    {
+        [self reloadInputViews];
+        self.cityText.hidden = NO;
+        self.stateText.hidden = NO;
+        self.cityLabel.hidden = YES;
+        self.stateLabel.hidden = YES;
+        self.cityText.text = self.cityLabel.text;
+        self.stateText.text = self.stateLabel.text;
+        self.editButton.title = @"Done";
+    }
+    //Disable edit mode
+    else
+    {
+        [self.editButton.title isEqualToString:@"Edit"];
+        self.cityText.hidden = YES;
+        self.stateText.hidden = YES;
+        self.stateLabel.hidden = NO;
+        self.cityLabel.hidden = NO;
+        self.cityLabel.text = self.cityText.text;
+        self.stateLabel.text = self.stateText.text;
+        self.cityInfo.cityName = self.cityText.text;
+        self.cityInfo.stateName = self.stateText.text;
+    }
+    
 }
-*/
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    WebViewController *vc = segue.destinationViewController;
+    vc.webAddress = self.cityInfo.webAddress;
+}
+
+
 
 @end

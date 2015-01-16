@@ -7,7 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CityCustomClass.h"
+#import "RootViewController.h"
+#import "WebViewController.h"
 
-@interface CityViewController : UIViewController
+@protocol DetailViewDelegate <NSObject>
+
+- (void) titleButtonPressed :(NSString *)name;
+
+
+@end
+
+@interface DetailViewController : UIViewController
+
+@property CityCustomClass *cityInfo;
+//@property WebViewController *webInfo;
+
+@property (nonatomic, weak) id <DetailViewDelegate> delegate;
 
 @end

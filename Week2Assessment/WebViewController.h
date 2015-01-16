@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CityCustomClass.h"
+#import "DetailViewController.h"
+#import "RootViewController.h"
 
 @interface WebViewController : UIViewController
+
+@property NSString *webAddress;
 
 @end

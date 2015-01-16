@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface CityCustomClass : NSObject
+
+@property NSString *cityName;
+@property NSString *stateName;
+@property UIImage *cityImage;
+@property NSString *webAddress;
+
+- (instancetype)initWithName:(NSString *)city :(NSString *)state :(UIImage *)image :(NSString *)web;
+
 
 @end
